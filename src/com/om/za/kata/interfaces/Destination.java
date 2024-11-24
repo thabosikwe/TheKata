@@ -1,7 +1,7 @@
 package com.om.za.kata.interfaces;
 
 public class Destination {
-    String destChars;
+    String destChars = "";
 
     public String getDestChars()
     {
@@ -28,11 +28,5 @@ public class Destination {
         for (char newvalue : newvalues) {
             this.destChars = this.destChars.concat(String.valueOf(newvalue));
         }
-
-        /*used above enhanced for loop*/
-//        for (int i = 0; i < newvalues.length; i++)
-//        {
-//            this.destChars = this.destChars.concat(String.valueOf(newvalues[i]));
-//        }
     }
 }

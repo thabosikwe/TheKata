@@ -1,51 +1,56 @@
-import com.om.za.kata.interfaces.Name;
-import com.om.za.kata.interfaces.Name.displayName;//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-
-import org.mockito.mock.*;
-import org.mockito.Mockito;
+import com.om.za.kata.classes.CopierProcessor;
+import com.om.za.kata.interfaces.Destination;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.List;
 
 import static org.mockito.Mockito.mock;
-//import com.om.za.kata.interfaces.Name;
-import com.om.za.kata.interfaces.Name.displayN;
+
+import com.om.za.kata.interfaces.Source;
+import com.om.za.kata.interfaces.Source.ReadSource;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
+        int counter = 0;
+        Source srcClass = new Source();
+        ReadSource rdSrc = new ReadSource();
+        Destination dest = new Destination();
+        CopierProcessor cpr = new CopierProcessor();
 
         try
         {
-            displayN dn = new displayN();
-            Name.displayN ndn = new Name.displayN();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            String newname = br.readLine();
-            System.out.println("BufferedReader output: " + newname);
-            System.out.println(newname.contains("\\n"));
-            System.out.println(newname.indexOf("\\n"));
-            System.out.println(newname.charAt((newname.indexOf("\\n"))+2));
-
-            ndn.displayDetails();
-            dn.displayDetails();
-            String name = ndn.getName();
-            boolean bool = name.contains("\\");
-            System.out.println(bool);
-            System.out.println(name.contains("\\n"));
-            System.out.println(name.indexOf("\\"));
-            System.out.println(name);
-
-            System.out.printf("Hello and welcome!");
-            List mockedList = mock(List.class);
-            mockedList.add("one");
-            mockedList.clear();
-
-
-            for (int i = 1; i <= 5; i++) {
-                System.out.println("i = " + i);
+            System.out.println("Please capture the number representing total number of characters to read and write:" +
+                    "\nPress ENTER to proceed with default single character read and write.");
+            try
+            {
+                counter = Integer.parseInt(System.console().readLine());
             }
+            catch (NumberFormatException nfe)
+            {
+                System.out.println("Seems the number you captured is not valid... we will proceed");
+            }
+            System.out.println("Please capture your input. To determine end of input enter '\\n': ");
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String inputstr = br.readLine();
+
+            /*
+             * System.console.ReadLine() doesn't see the \n in the console.
+             * Hence the use of BufferedReader
+             */
+
+            cpr.Processor(inputstr, counter);
+
+            try {
+                System.out.println("\n\n:::: Initializing MOCKITO Library :::");
+                CopierProcessor mockedCpr = mock(CopierProcessor.class);
+                mockedCpr.Processor(inputstr, counter);
+            }
+            catch (Exception ex)
+            {
+                System.out.println("Mockito paused.");
+            }
+            System.out.println("KATA Completed. Thank you");
         }
         catch (Exception ex)
         {
@@ -55,19 +60,7 @@ public class Main {
 
 }
 
-interface displayName2
-{
-    void  displayDetails();
-}
 
-class displayNLocal implements displayName2
-{
-    @Override
-    public void displayDetails()
-    {
-        System.out.println("Hello World Interface Impl");
-    }
 
-}
 
 
